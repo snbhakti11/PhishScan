@@ -1,0 +1,34 @@
+# api.py
+# API endpoints for PhishScan
+"""
+api.py
+Simple REST API for phishing detection service.
+"""
+
+from flask import Flask, request, jsonify
+from scanner import scan_url
+
+app = Flask(__name__)
+
+
+@app.route("/scan", methods=["POST"])
+def scan():
+    """
+    Accept JSON with {"url": "..."} and return scan results.
+    """
+    data = request.get_json()
+    if not data or "url" not in data:
+        return jsonify({"error": "Missing 'url' field"}), 400
+
+    url = data["url"]
+    result = scan_url(url)
+    return jsonify(result)
+
+
+@app.route("/", methods=["GET"])
+def index():
+    return jsonify({"status": "PhishScan API running"})
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5050, debug=True)

@@ -1,0 +1,6 @@
+Flask
+requests
+whois
+
+cryptography
+python-whois
