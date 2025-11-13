@@ -1,0 +1,5 @@
+time="2025-11-11T23:25:30+05:30" level=warning msg="/Users/bhaktisn/Desktop/PhishScan/phishscan/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Container phishscan_redis  Running
+ Container phishscan_api  Running
+ Container phishscan_feed_updater  Starting
+ Container phishscan_feed_updater  Started

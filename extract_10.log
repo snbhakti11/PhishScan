@@ -1,0 +1,6 @@
+Loading phishscan/dataset_phishing.csv (limit=10)
+Saving phishscan/dataset_extracted_10.csv shape (10, 21)
+done
+Loading phishscan/dataset_phishing.csv (limit=10)
+Saving phishscan/dataset_extracted_10.csv shape (10, 21)
+done

@@ -1,0 +1,13 @@
+processed 10
+processed 20
+processed 30
+processed 40
+processed 50
+processed 60
+processed 70
+processed 80
+processed 90
+processed 100
+Traceback (most recent call last):
+  File "<stdin>", line 67, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'phishcan/smoke_100_results_ratelimited.json'

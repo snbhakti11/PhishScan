@@ -1,0 +1,25 @@
+processed 10
+processed 20
+processed 30
+processed 40
+processed 50
+processed 60
+processed 70
+processed 80
+processed 90
+processed 100
+done
+{
+  "count": 19,
+  "min": 0.49435052910052907,
+  "max": 0.49435052910052907,
+  "mean": 0.49435052910052907,
+  "stdev": 0.0,
+  "buckets": {
+    "<0.2": 0,
+    "0.2-0.4": 0,
+    "0.4-0.6": 19,
+    "0.6-0.8": 0,
+    ">0.8": 0
+  }
+}
