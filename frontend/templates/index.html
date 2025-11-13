@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PhishScan - Frontend</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>PhishScan</h1>
+      <form id="scanForm">
+        <input type="text" id="url" placeholder="Enter URL to scan" required>
+        <button type="submit">Scan</button>
+      </form>
+      <div id="result">
+        <div id="verdictBox" class="verdict neutral">No scan yet</div>
+        <pre id="resultText"></pre>
+      </div>
+    </div>
+    <script>
+      const form=document.getElementById('scanForm');
+      form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const url=document.getElementById('url').value;
+        const vb=document.getElementById('verdictBox');
+        const rt=document.getElementById('resultText');
+        // don't replace the #result container (that would remove the child elements)
+        if(rt) rt.innerText='Scanning...';
+        if(vb) { vb.className='verdict neutral'; vb.innerText='Scanning...'; }
+        try{
+          const res=await fetch('/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url})});
+          const j=await res.json();
+          if(j.error) {
+            if(rt) rt.innerText='Error: '+j.error;
+            if(vb) { vb.className='verdict neutral'; vb.innerText='Error'; }
+            return;
+          }
+          let out='URL: '+j.url+'\n';
+          out+='ML probability: '+(j.ml_probability ?? 'n/a')+'\n';
+          out+='Combined probability: '+(j.combined_probability ?? 'n/a')+'\n';
+          out+='Final verdict: '+(j.final_verdict ?? 'n/a')+'\n';
+          out+='Severity: '+(j.severity ?? 'n/a')+'\n';
+          if(rt) rt.innerText=out;
+          // color verdict box: green legitimate, red phishing, yellow suspicious
+          if(vb) vb.className='verdict ' + ((j.final_verdict=='phishing')? 'danger' : (j.final_verdict=='legitimate' && j.severity=='suspicious')? 'warning' : (j.final_verdict=='legitimate')? 'safe' : 'neutral');
+          if(vb) vb.innerText=(j.final_verdict?'Verdict: '+j.final_verdict:'No verdict');
+        }catch(err){
+          if(rt) rt.innerText='Request failed: '+err;
+          if(vb) { vb.className='verdict neutral'; vb.innerText='Request failed'; }
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+body{font-family: Arial, sans-serif;background:#f5f7fa;color:#111}
+.container{max-width:720px;margin:40px auto;padding:20px;background:white;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+h1{margin-top:0}
+form{display:flex;gap:8px}
+input[type=text]{flex:1;padding:8px;border:1px solid #ccc;border-radius:4px}
+button{padding:8px 12px;border-radius:4px;border:0;background:#007bff;color:white}
+#result{white-space:pre-wrap;margin-top:16px;padding:12px;background:#f8f9fb;border-radius:4px}
+.verdict{padding:10px;border-radius:6px;margin-bottom:8px;color:white;font-weight:600}
+.verdict.safe{background:#2ecc71} /* green */
+.verdict.danger{background:#e74c3c} /* red */
+.verdict.warning{background:#f1c40f;color:#111} /* yellow */
+.verdict.neutral{background:#95a5a6}
+#resultText{white-space:pre-wrap}
