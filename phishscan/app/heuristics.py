@@ -57,8 +57,18 @@ def analyze_url(url: str) -> dict:
 
 	score = int(max(0, min(100, round(score))))
 
-	# normalized verdict labels
+	# severity: give a hint when heuristics saw suspicious indicators
+	# - 'high' when score >=50 (phishing)
+	# - 'suspicious' when suspicious keyword triggered but score <50
+	# - 'low' otherwise
+	severity = 'low'
+	if score >= 50:
+		severity = 'high'
+	elif 'suspicious_keyword' in reasons:
+		severity = 'suspicious'
+
+	# normalized verdict labels (binary for downstream compatibility)
 	final_verdict = 'phishing' if score >= 50 else 'legitimate'
 
-	return {"score": score, "final_verdict": final_verdict, "reasons": reasons}
+	return {"score": score, "final_verdict": final_verdict, "severity": severity, "reasons": reasons}
 
