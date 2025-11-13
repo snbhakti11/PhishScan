@@ -92,6 +92,9 @@ def scan_url(url: str) -> dict:
 		"html_scan": html_result,
 		"ml_probability": ml_prob,
 		"final_risk_score": round(final_risk, 3),
+		# Expose combined_probability to match /predict's combined field and
+		# allow frontends to consistently read the multi-factor score.
+		"combined_probability": round(final_risk, 3),
 		"final_verdict": verdict,
 		"features_used": features,
 	})

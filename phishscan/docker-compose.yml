@@ -36,3 +36,16 @@ services:
     image: redis:7-alpine
     container_name: phishscan_redis
     restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../frontend
+    container_name: phishscan_frontend
+    ports:
+      - "8080:8080"
+    environment:
+      - BACKEND_URL=http://api:5050
+      - PORT=8080
+    depends_on:
+      - api
+    restart: unless-stopped
