@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    container_name: phishscan_api
+    ports:
+      - "5050:5050"
+    environment:
+      PHISHSCAN_DB: /data/phishscan.db
+      PHISHSCAN_API_KEY: "${PHISHSCAN_API_KEY:-}"
+      REDIS_URL: redis://redis:6379/0
+      PHISHSCAN_MODEL_PATH: /app/phishscan_runtime_model_11430.pkl
+      PORT: '5050'
+    volumes:
+      - ./feeds:/app/feeds
+      - ./data:/data
+      - ./phishscan_model.pkl:/app/phishscan_model.pkl:ro
+      - ./phishscan_model.pkl.feature_importances.csv:/app/phishscan_model.pkl.feature_importances.csv:ro
+      # Mount the runtime model trained with the extractor schema (in this folder)
+      - ./phishscan_runtime_model_11430.pkl:/app/phishscan_runtime_model_11430.pkl:ro
+      - ./phishscan_runtime_model_11430.pkl.feature_importances.csv:/app/phishscan_runtime_model_11430.pkl.feature_importances.csv:ro
+    restart: unless-stopped
+
+  feed_updater:
+    build: .
+    container_name: phishscan_feed_updater
+    command: ["python", "feed_updater.py"]
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./feeds:/app/feeds
+    restart: "no"
+
+  redis:
+    image: redis:7-alpine
+    container_name: phishscan_redis
+    restart: unless-stopped

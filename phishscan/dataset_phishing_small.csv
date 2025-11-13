@@ -1,0 +1,11 @@
+url,status
+http://example.com/login,legitimate
+https://paypal.com/login,legitimate
+http://secure-paypal-login.abc123.xyz/login,phishing
+https://accounts.google.com/signin,legitimate
+http://login.google.com.fake-domain.ru/verify,phishing
+https://bankofamerica.com.secure-login.ru/login,phishing
+https://github.com/,legitimate
+https://facebook.com/,legitimate
+http://paypal-security-update.phishingsite.xyz/verify,phishing
+http://example.org/,legitimate

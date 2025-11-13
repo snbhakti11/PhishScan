@@ -1,0 +1,2 @@
+"""phishscan.app package init"""
+
